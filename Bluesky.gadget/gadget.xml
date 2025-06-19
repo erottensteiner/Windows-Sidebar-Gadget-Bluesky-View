@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<gadget> 
+	<name>Bluesky</name> 
+	<namespace>wi_systems</namespace> 
+	<version>1.0.0.0</version> 
+	<author name="Ernst Rottensteiner"> 
+		<info url="https://www.rottensteiner.at" text="Vist our Web site" /> 
+		<logo src="logo.png" /> 
+	</author> 
+	<copyright>&#0169; 2025</copyright> 
+	<description>Bluesky Gadget</description> 
+	<icons> <icon width="64" height="64" src="icon.png" /> </icons> 
+        <settings>
+          <name>Einstellungen</name>
+          <description>Konfiguration für das Gadget</description>
+          <!-- Standardwerte definieren -->
+          <default>
+          <setting name="UPDATE_INTERVAL" value="60000" />
+          </default>
+        </settings>
+	<hosts> 
+		<host name="sidebar"> 
+		<base type="HTML" apiVersion="1.0.0" src="bluesky.html" /> 
+		<permissions>full</permissions> 
+		<platform minPlatformVersion="1.0" /> 
+		</host> 
+	</hosts> 
+</gadget>

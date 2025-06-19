@@ -1,0 +1,85 @@
+<HTML>
+	<STYLE>
+		* {
+			font-family:Arial;
+			font-size:12px;
+		}
+
+		body {
+			width:300px;
+			height:215px;
+			margin:0px;
+		}
+       
+		table {
+			border-collapse:collapse;
+		}
+
+		table td{
+			padding-bottom:5px;
+		}
+	</STYLE>
+	<HEAD>
+		<SCRIPT language="javascript" type="text/javascript">
+			System.Gadget.onSettingsClosing = SettingsClosing;
+			function initMe() {
+				try{
+				envUsername.value = System.Gadget.document.parentWindow.USER_HANDLE;
+				envPW.value = System.Gadget.document.parentWindow.USER_PASSWORD;
+				envInterval.value = System.Gadget.document.parentWindow.UPDATE_INTERVAL;
+				envHeight.value = System.Gadget.document.parentWindow.GADGET_HEIGHT;
+				} catch(err) {System.Debug.outputString(err.name+" - "+err.message)}
+			}
+
+			function SettingsClosing(event) {
+			//function onSettingsClosed(event) {
+				try {
+			 	if (event.closeAction == event.Action.commit) {
+					System.Gadget.Settings.write("USER_HANDLE", envUsername.value);
+				        System.Gadget.document.parentWindow.USER_HANDLE = envUsername.value;
+					System.Gadget.Settings.write("USER_PASSWORD", envPW.value);
+				        System.Gadget.document.parentWindow.USER_PASSWORD = envPW.value;
+					System.Gadget.Settings.write("UPDATE_INTERVAL", envInterval.value);
+					System.Gadget.document.parentWindow.UPDATE_INTERVAL = envInterval.value;
+					System.Gadget.Settings.write("GADGET_HEIGHT", parseInt(envHeight.value));
+				        System.Gadget.document.parentWindow.GADGET_HEIGHT = parseInt(envHeight.value);
+   				        System.Gadget.Settings.save();
+				}
+				event.cancel = false;
+				} catch(err) { System.Debug.outputString("settingsClosing:"+err.name+" - "+err.message)}
+			}
+		</SCRIPT>
+	</HEAD>
+	<BODY onload="initMe()">
+		<table>
+			<tr><td style="padding-top:10px;">
+				<b>Zugangsdaten:</b>
+			</td></tr>
+			<tr>
+				<td style="text-align:left;">User-Handle (Bluesky-Username):</td>
+				<td>
+				<input type="text" id="envUsername" length="400" size="20">
+			 	</td></tr>
+			<tr>
+				<td style="text-align:left;">Password:</td>
+				<td>
+				<input type="text" id="envPW" length="400" size="20">
+			</td></tr>
+		</table>
+	        <table>
+			<tr><td style="padding-top:10px;">
+				<b>Settings:</b>
+			</td></tr>
+			<tr>
+				<td style="text-align:left;">Aktualisierungsintervall (ms):</td>
+				<td>
+				<input type="text" id="envInterval" length="400" size="5">
+			 	</td></tr>
+			<tr>
+				<td style="text-align:left;">Gadget-Hoehe:</td>
+				<td>
+				<input type="text" id="envHeight" length="400" size="5">
+			</td></tr>
+		</table>
+	</BODY>
+</HTML>
