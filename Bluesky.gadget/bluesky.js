@@ -43,7 +43,8 @@ function loadFeed() {
 
     makeBlueskyLoginRequest(USER_HANDLE, USER_PASSWORD, function(response, error) {
         if (error) {
-            feedContainer.innerHTML = "<p>Login fehlgeschlagen: " + error + "</p>";
+            feedContainer.innerHTML = feedContainer.innerHTML + "</br><p>Login fehlgeschlagen: " + error + "</p>";
+	    return;
         } else {
 		var accessToken = response.accessJwt;
 	        //f. Test:
@@ -225,6 +226,7 @@ function startAutoRefresh() {
 
 System.Gadget.onSettingsClosed = function() {
     // Gadget neu laden
+    feedContainer.innerHTML = "";
     loadFeed();
     //window.location.reload();
 };
