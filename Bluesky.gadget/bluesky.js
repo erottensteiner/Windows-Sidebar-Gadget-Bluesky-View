@@ -91,16 +91,26 @@ function loadFeed() {
     for (var i = 0; i < feedData.feed.length; i++) {
         var post = feedData.feed[i].post;
         var author = post.author;
+        // DIAGNOSE - zeigt die Avatar-URL an:
+        // feedContainer.innerHTML += "<p style='font-size:9px;word-break:break-all'>" 
+        //    + (author.avatar || "KEIN AVATAR") + "</p>";
+
         var content = post.record.text;
         var date = new Date(post.indexedAt).toLocaleString();
         var postURL = "https://bsky.app/profile/" + post.author.handle + "/post/" + post.uri.split("/").pop();
+
+	// Avatarbild + @jpeg Suffix anfügen falls fehlend
+	var avatarUrl = author.avatar || "";
+	if (avatarUrl !== "" && avatarUrl.indexOf("@") === -1) {
+	    avatarUrl = avatarUrl + "@jpeg";
+	}
 
         // HTML für jeden Post zusammensetzen
         var postElement = document.createElement("div");
         postElement.className = "post";
         //var postHTML =
         postElement.innerHTML = '' +
-        '<img src="' + author.avatar + '" width="40" style="border-radius:50%; margin-right:0px;">' +
+        '<img src="' + avatarUrl + '" width="40" style="border-radius:50%; margin-right:0px;">' +
         //'<a href="' + postURL + '" target="_blank">' + author.displayName + '</a></br>' +
         '<a href="' + postURL + '" target="_blank">' + author.handle + '</a></br>' +
         //author.handle + '</br>' + post.record.text + '</p>'
